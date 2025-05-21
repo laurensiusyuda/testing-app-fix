@@ -3,57 +3,55 @@
 namespace App\Http\Controllers;
 
 use App\Models\Barang;
-use App\Models\Penjualan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 
 class BarangController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        // Ambil semua data barang
-        $barangs = Barang::all();
+        $barangs = Barang::latest()->get();
+        $deletedBarang = Barang::onlyTrashed()->latest()->first();
 
-        // Kirim data barang ke view
-        return view('welcome', compact('barangs'));
+        // Filter berdasarkan waktu
+        $dailyCount = Barang::whereDate('created_at', Carbon::today())->count();
+        $weeklyCount = Barang::whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->count();
+        $monthlyCount = Barang::whereMonth('created_at', Carbon::now()->month)->count();
+        $yearlyCount = Barang::whereYear('created_at', Carbon::now()->year)->count();
+
+        return view('barang.index', compact('barangs', 'deletedBarang', 'dailyCount', 'weeklyCount', 'monthlyCount', 'yearlyCount'));
     }
 
     public function store(Request $request)
     {
         $request->validate([
-            'nama' => 'required|string|max:255',
+            'nama' => 'required',
             'harga' => 'required|integer',
             'kuantitas' => 'required|integer',
         ]);
 
-        // Menambahkan barang baru
-        Barang::create([
-            'nama' => $request->nama,
-            'harga' => $request->harga,
-            'kuantitas' => $request->kuantitas,
-        ]);
+        Barang::create($request->only('nama', 'harga', 'kuantitas'));
 
-        return redirect('/')->with('success', 'Barang berhasil ditambahkan!');
+        return redirect()->route('barang.index')->with('success', 'Barang berhasil ditambahkan!');
     }
 
     public function destroy($id)
     {
-        // Menghapus barang berdasarkan ID
-        Barang::findOrFail($id)->delete();
+        $barang = Barang::findOrFail($id);
+        $barang->delete();
 
-        return redirect('/')->with('success', 'Barang berhasil dihapus!');
-    }
-    public function undo(Request $request)
-{
-    // Cek apakah ada barang yang dihapus
-    $barang = Barang::withTrashed()->find($request->id);
-    
-    // Jika barang ditemukan, restore barang
-    if ($barang) {
-        $barang->restore();
-        return redirect('/barang')->with('success', 'Barang berhasil dikembalikan!');
+        return redirect()->route('barang.index')->with('success', 'Barang berhasil dihapus!');
     }
 
-    return redirect('/barang')->with('error', 'Barang tidak ditemukan!');
-}
+    public function undo()
+    {
+        $barang = Barang::onlyTrashed()->latest()->first();
 
+        if ($barang) {
+            $barang->restore();
+            return redirect()->route('barang.index')->with('success', 'Barang berhasil dipulihkan!');
+        }
+
+        return redirect()->route('barang.index')->with('error', 'Tidak ada barang untuk di-undo.');
+    }
 }

@@ -6,11 +6,14 @@ use App\Http\Controllers\PenjualanController;
 use App\Http\Controllers\DashboardController;
 use App\Models\Barang;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
-// Route untuk halaman utama (welcome page) + kirim data barang
 Route::get('/', function () {
-    $barangs = Barang::all();
-    return view('welcome', compact('barangs'));
+    if (Auth::check()) {
+        return redirect()->route('dashboard');
+    }
+
+    return view('welcome');
 });
 
 // Route dashboard
@@ -24,7 +27,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/barang', [BarangController::class, 'index'])->name('barang.index');
     Route::post('/barang', [BarangController::class, 'store']);
     Route::delete('/barang/{id}', [BarangController::class, 'destroy']);
-    Route::post('/barang/undo', [BarangController::class, 'undo']);
+    Route::post('/barang/undo', [BarangController::class, 'undo'])->name('barang.undo');
 
     // Penjualan routes
     Route::get('/penjualan', [PenjualanController::class, 'index'])->name('penjualan.index');
