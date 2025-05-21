@@ -1,5 +1,3 @@
-<?php
-
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -8,34 +6,40 @@ use Illuminate\Support\Facades\Hash;
 
 class ProfileController extends Controller
 {
-    public function edit(Request $request)
+    public function edit()
     {
         return view('profile.edit', [
-            'user' => $request->user(),
+            'user' => Auth::user(),
         ]);
     }
 
     public function update(Request $request)
     {
+        $user = Auth::user();
+
         $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'email'],
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255|unique:users,email,'.$user->id,
         ]);
 
-        $user = $request->user();
         $user->update($request->only('name', 'email'));
 
-        return redirect()->route('profile.edit')->with('status', 'profile-updated');
+        return back()->with('status', 'Profil berhasil diperbarui.');
     }
 
     public function destroy(Request $request)
     {
-        $user = $request->user();
+        $user = Auth::user();
 
-        Auth::logout();
+        $request->validate([
+            'password' => 'required',
+        ]);
+
+        if (!Hash::check($request->password, $user->password)) {
+            return back()->withErrors(['password' => 'Password salah.']);
+        }
 
         $user->delete();
-
-        return redirect('/');
+        return redirect('/')->with('status', 'Akun berhasil dihapus.');
     }
 }
