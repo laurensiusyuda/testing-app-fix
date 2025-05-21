@@ -1,60 +1,31 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
-    <title>Daftar Barang</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selamat Datang di Aplikasi Logistik</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.4.1/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body>
-    <h1>Daftar Barang</h1>
+<body class="bg-gray-100 text-gray-800">
+    <div class="min-h-screen flex flex-col items-center justify-center px-4">
+        <h1 class="text-4xl font-bold mb-4">Selamat Datang di Sistem Logistik</h1>
 
-    <table border="1" cellpadding="10">
-        <thead>
-            <tr>
-                <th>No</th>
-                <th>Nama Barang</th>
-                <th>Harga</th>
-                <th>Kuantitas</th>
-                <th>Aksi</th>
-            </tr>
-        </thead>
-        <tbody>
-            @forelse($barangs as $i => $barang)
-                <tr>
-                    <td>{{ $i + 1 }}</td>
-                    <td>{{ $barang->nama }}</td>
-                    <td>{{ $barang->harga }}</td>
-                    <td>{{ $barang->kuantitas }}</td>
-                    <td>
-                        <form method="POST" action="/barang/{{ $barang->id }}">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" onclick="return confirm('Yakin mau hapus?')">Hapus</button>
-                        </form>
-                    </td>
-                </tr>
-            @empty
-                <tr>
-                    <td colspan="5" align="center">Belum ada barang.</td>
-                </tr>
-            @endforelse
-        </tbody>
-    </table>
+        <p class="mb-6 text-lg text-gray-600">Kelola barang & penjualan dengan mudah dan cepat.</p>
 
-    <br>
-
-    <h2>Tambah Barang Baru</h2>
-    <form method="POST" action="/barang">
-        @csrf
-        <input type="text" name="nama" placeholder="Nama Barang" required>
-        <input type="number" name="harga" placeholder="Harga" required>
-        <input type="number" name="kuantitas" placeholder="Kuantitas" required>
-        <button type="submit">Tambah</button>
-    </form>
-
-    <br>
-    @if (session('success'))
-        <p style="color:green;">{{ session('success') }}</p>
-    @endif
-
+        @auth
+            <a href="{{ route('dashboard') }}" class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition">
+                Masuk ke Dashboard
+            </a>
+        @else
+            <div class="flex gap-4">
+                <a href="{{ route('login') }}" class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition">
+                    Login
+                </a>
+                <a href="{{ route('register') }}" class="bg-gray-300 text-gray-800 px-6 py-2 rounded hover:bg-gray-400 transition">
+                    Daftar
+                </a>
+            </div>
+        @endauth
+    </div>
 </body>
 </html>
