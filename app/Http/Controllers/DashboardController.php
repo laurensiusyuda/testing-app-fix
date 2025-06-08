@@ -2,17 +2,24 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use App\Models\Barang;
 use App\Models\Penjualan;
 
 class DashboardController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $jumlahBarang = Barang::count();
-        $totalPenjualan = Penjualan::sum('total_harga');
-        $jumlahPenjualan = Penjualan::count();
+        $tanggal = $request->input('tanggal');
+        $tanggalBarang = $request->input('tanggal_barang');
 
-        return view('dashboard.index', compact('jumlahBarang', 'totalPenjualan', 'jumlahPenjualan'));
+        $penjualans = Penjualan::with('barang')
+            ->when($tanggal, fn($query) => $query->whereDate('tanggal', $tanggal))
+            ->latest()->get();
+
+        $barangs = Barang::when($tanggalBarang, fn($query) => $query->whereDate('created_at', $tanggalBarang))
+            ->latest()->get();
+
+        return view('dashboard.index', compact('penjualans', 'barangs', 'tanggal', 'tanggalBarang'));
     }
 }
