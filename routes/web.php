@@ -8,12 +8,14 @@ use App\Models\Barang;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
+// Route utama - redirect ke dashboard jika sudah login, ke login jika belum
 Route::get('/', function () {
     if (Auth::check()) {
         return redirect()->route('dashboard');
     }
-
-    return view('welcome');
+    
+    // Langsung tampilkan halaman login
+    return view('auth.login');
 });
 
 // Route dashboard
@@ -25,13 +27,16 @@ Route::get('/dashboard', [DashboardController::class, 'index'])
 Route::middleware(['auth'])->group(function () {
     // Barang routes
     Route::get('/barang', [BarangController::class, 'index'])->name('barang.index');
-    Route::post('/barang', [BarangController::class, 'store']);
-    Route::delete('/barang/{id}', [BarangController::class, 'destroy']);
+    Route::post('/barang', [BarangController::class, 'store'])->name('barang.store');
+    Route::delete('/barang/{id}', [BarangController::class, 'destroy'])->name('barang.destroy');
     Route::post('/barang/undo', [BarangController::class, 'undo'])->name('barang.undo');
 
     // Penjualan routes
     Route::get('/penjualan', [PenjualanController::class, 'index'])->name('penjualan.index');
-    Route::post('/penjualan', [PenjualanController::class, 'store']);
+    Route::post('/penjualan', [PenjualanController::class, 'store'])->name('penjualan.store');
+    Route::delete('/penjualan/{id}', [PenjualanController::class, 'destroy'])->name('penjualan.destroy');
+    Route::post('/penjualan/undo', [PenjualanController::class, 'undo'])->name('penjualan.undo');
 });
+
 require __DIR__.'/auth.php';
 require __DIR__.'/profile.php';

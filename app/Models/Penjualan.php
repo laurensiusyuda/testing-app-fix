@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -13,10 +12,15 @@ class Penjualan extends Model
         'barang_id',
         'jumlah',
         'total_harga',
+        'tanggal',
     ];
 
     public function barang()
     {
         return $this->belongsTo(Barang::class);
     }
+
+    protected $casts = [
+        'tanggal' => 'date',
+    ];
 }
