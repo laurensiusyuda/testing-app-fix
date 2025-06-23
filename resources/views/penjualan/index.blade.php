@@ -181,7 +181,7 @@
             transition: all 0.3s;
         }
 
-        .btn-jual-table:hover {
+        .btn-cancel-table:hover {
             transform: translateY(-1px);
             box-shadow: 0 2px 4px rgba(0,0,0,0.2);
         }
