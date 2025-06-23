@@ -264,17 +264,19 @@
             <table class="data-table">
                 <thead>
                     <tr>
-                        <th>NAMA BARANG</th>
-                        <th>JUMLAH TERJUAL</th>
-                        <th>TANGGAL PENJUALAN</th>
+                    <th>TANGGAL PENJUALAN</th>    
+                    <th>NAMA BARANG</th>
+                    <th>JUMLAH BARANG</th>
+                    <th>TOTAL HARGA</th>
                     </tr>
                 </thead>
                 <tbody>
                     @forelse ($penjualans as $p)
                     <tr>
+                        <td>{{ $p->tanggal->format('l, d/m/Y') }}</td>    
                         <td>{{ $p->barang->nama ?? '-' }}</td>
                         <td>{{ $p->jumlah }} pcs</td>
-                        <td>{{ $p->tanggal->format('l, d/m/Y') }}</td>
+                        <td>Rp {{ number_format($p->total_harga, 0, ',', '.') }}</td>
                     </tr>
                     @empty
                     <tr>
@@ -283,6 +285,9 @@
                     @endforelse
                 </tbody>
             </table>
+            <div class="mt-4">
+                {{ $penjualans->links('pagination::tailwind') }}
+                </div>
         </div>
 
         <div class="table-container">
@@ -315,9 +320,52 @@
                     @endforelse
                 </tbody>
             </table>
-        </div>
-    </div>
+            <div class="mt-4 flex justify-between items-center">
+    @if ($barangs->onFirstPage())
+        <span class="text-gray-400">← Prev</span>
+    @else
+        <a href="{{ $barangs->previousPageUrl() }}" class="text-blue-500 hover:underline">← Prev</a>
+    @endif
 
+    @if ($barangs->hasMorePages())
+        <a href="{{ $barangs->nextPageUrl() }}" class="text-blue-500 hover:underline">Next →</a>
+    @else
+        <span class="text-gray-400">Next →</span>
+    @endif
+</div>
+            <div class="table-container">
+            <div class="table-header">
+                Laporan Laba Rugi
+            </div>
+            <table class="data-table">
+                <thead>
+            <tr>
+                <th >Tanggal</th>
+                <th >Nama Barang</th>
+                <th >Harga Beli</th>
+                <th >Harga Jual</th>
+                <th >Laba</th>
+            </tr>
+        </thead>
+        <tbody>
+            @forelse($laporan as $row)
+                <tr>
+                    <td >{{ $row['tanggal'] }}</td>
+                    <td >{{ $row['nama_barang'] }}</td>
+                    <td >Rp {{ number_format($row['harga_beli']) }}</td>
+                    <td >Rp {{ number_format($row['harga_jual']) }}</td>
+                    <td >Rp {{ number_format($row['laba']) }}</td>
+                </tr>
+            @empty
+                <tr>
+                    <td colspan="5" class="text-center p-2">Belum ada data penjualan.</td>
+                </tr>
+            @endforelse
+        </tbody>
+    </table>
+
+    </div>
+    
     <form method="POST" action="{{ route('logout') }}" style="display: inline;">
         @csrf
         <button type="submit" class="logout-btn">LOGOUT</button>

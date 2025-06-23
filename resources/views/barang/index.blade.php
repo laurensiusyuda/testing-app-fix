@@ -393,6 +393,20 @@
                     @endforelse
                 </tbody>
             </table>
+            <div class="mt-4 flex justify-between items-center">
+    @if ($barangs->onFirstPage())
+        <span class="text-gray-400">← Prev</span>
+    @else
+        <a href="{{ $barangs->previousPageUrl() }}" class="text-blue-500 hover:underline">← Prev</a>
+    @endif
+
+    @if ($barangs->hasMorePages())
+        <a href="{{ $barangs->nextPageUrl() }}" class="text-blue-500 hover:underline">Next →</a>
+    @else
+        <span class="text-gray-400">Next →</span>
+    @endif
+</div>
+
         </div>
 
         <h2 class="section-title">TAMBAH BARANG</h2>

@@ -10,7 +10,7 @@ class BarangController extends Controller
 {
     public function index(Request $request)
     {
-        $barangs = Barang::latest()->get();
+        $barangs = Barang::latest()->paginate(7);
         $deletedBarang = Barang::onlyTrashed()->latest()->first();
 
         // Filter berdasarkan waktu
