@@ -248,6 +248,7 @@
 <body>
     <div class="sidebar">
         <ul class="sidebar-menu">
+            <li><a href="{{ route('penjualan.index') }}">penjualan</a></li>
             <li><a href="{{ route('dashboard') }}">dashboard</a></li>
             <li><a href="{{ route('barang.index') }}">Kelola barang</a></li> 
         </ul>
@@ -303,7 +304,7 @@
                     @forelse($penjualans as $key => $p)
                     <tr>
                         <td>{{ sprintf('%02d', $key + 1) }}</td>
-                        <td>{{ $p->barang->nama }}</td>
+                        <<td>{{ $p->barang ? $p->barang->nama : 'Barang tidak tersedia' }}</td>
                         <td>{{ $p->jumlah }} pcs</td>
                         <td>Rp {{ number_format($p->total_harga, 0, ',', '.') }}</td>
                         <td>

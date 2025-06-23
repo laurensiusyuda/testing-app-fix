@@ -166,7 +166,7 @@
         .logout-btn {
             position: fixed;
             bottom: 20px;
-            right: 20px;
+            left: 20px;
             background: linear-gradient(135deg, #dc3545, #c82333);
             color: white;
             padding: 12px 24px;
@@ -179,6 +179,7 @@
             letter-spacing: 1px;
             transition: all 0.3s;
             box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            z-index: 1000;
         }
 
         .logout-btn:hover {
@@ -204,12 +205,20 @@
                 flex-direction: column;
                 align-items: flex-start;
             }
+            
+            .logout-btn {
+                left: 10px;
+                bottom: 10px;
+                padding: 10px 20px;
+                font-size: 12px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="sidebar">
         <ul class="sidebar-menu">
+            <li><a href="{{ route('dashboard') }}">Dashboard</a></li>
             <li><a href="{{ route('barang.index') }}">Kelola Barang</a></li>
             <li><a href="{{ route('penjualan.index') }}">Penjualan</a></li>
         </ul>
@@ -223,10 +232,10 @@
         <div class="filter-section">
             <form method="GET" class="filter-form">
                 <label for="tanggal">Tanggal Penjualan:</label>
-                <input type="date" id="tanggal" name="tanggal" value="{{ $tanggal }}">
+                <input type="date" id="tanggal" name="tanggal" value="">
                 
                 <label for="tanggal_barang">Tanggal Barang:</label>
-                <input type="date" id="tanggal_barang" name="tanggal_barang" value="{{ $tanggalBarang }}">
+                <input type="date" id="tanggal_barang" name="tanggal_barang" value="">
                 
                 <button type="submit" class="filter-btn">Filter</button>
             </form>
@@ -245,17 +254,31 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @forelse ($penjualans as $p)
                     <tr>
-                        <td>{{ $p->barang->nama ?? '-' }}</td>
-                        <td>{{ $p->jumlah }} pcs</td>
-                        <td>{{ $p->tanggal->format('l, d/m/Y') }}</td>
+                        <td>500 tepung</td>
+                        <td>100 pcs</td>
+                        <td>sabtu/24/2025</td>
                     </tr>
-                    @empty
                     <tr>
-                        <td colspan="3" class="no-data">Tidak ada data penjualan.</td>
+                        <td>500 gula</td>
+                        <td>100 pcs</td>
+                        <td>sabtu/24/2025</td>
                     </tr>
-                    @endforelse
+                    <tr>
+                        <td>500 baking powder</td>
+                        <td>100 pcs</td>
+                        <td>sabtu/24/2025</td>
+                    </tr>
+                    <tr>
+                        <td>500 tepung</td>
+                        <td>100 pcs</td>
+                        <td>sabtu/24/2025</td>
+                    </tr>
+                    <tr>
+                        <td>500 tepung</td>
+                        <td>100 pcs</td>
+                        <td>sabtu/24/2025</td>
+                    </tr>
                 </tbody>
             </table>
         </div>
@@ -275,19 +298,9 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @forelse ($barangs as $i => $b)
-                    <tr>
-                        <td>{{ $i + 1 }}</td>
-                        <td>{{ $b->nama }}</td>
-                        <td>Rp {{ number_format($b->harga, 0, ',', '.') }}</td>
-                        <td>{{ $b->kuantitas }}</td>
-                        <td>{{ $b->created_at->format('l, d/m/Y') }}</td>
-                    </tr>
-                    @empty
                     <tr>
                         <td colspan="5" class="no-data">Tidak ada data barang.</td>
                     </tr>
-                    @endforelse
                 </tbody>
             </table>
         </div>
