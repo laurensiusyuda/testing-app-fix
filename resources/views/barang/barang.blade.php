@@ -49,8 +49,9 @@
                                 </td>
                             </tr>
                         @endforeach
-                    </tbody>
+                </tbody>
                 </table>
+
 
                 <!-- Undo Delete -->
                 @if($deletedBarang)
