@@ -7,7 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body {
-            background-color: #2D3748;
+            background-color: #f5f1eb;
             font-family: 'Arial', sans-serif;
         }
     </style>

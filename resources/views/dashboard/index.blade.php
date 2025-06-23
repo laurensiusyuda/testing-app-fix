@@ -116,36 +116,42 @@
             border-radius: 8px;
             overflow: hidden;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            margin-bottom: 30px;
+            margin-bottom: 20px;
+            min-height: 200px;
         }
 
         .table-header {
             background: linear-gradient(135deg, #b4746f, #8b5a57);
             color: white;
-            padding: 15px 20px;
-            font-size: 1.2rem;
+            padding: 10px 15px;
+            font-size: 1rem;
             font-weight: bold;
         }
 
         .data-table {
             width: 100%;
             border-collapse: collapse;
+            min-height: 80px;
+            font-size: 13px;
         }
 
         .data-table th {
             background: #e8e2dd;
-            padding: 12px;
+            padding: 1px 10px;
             text-align: center;
             font-weight: bold;
             color: #333;
             border: 1px solid #d0c7bf;
+            font-size: 12px;
         }
 
         .data-table td {
-            padding: 12px;
+            padding: 8px 10px;
             text-align: center;
             border: 1px solid #d0c7bf;
             color: #333;
+            vertical-align: middle;
+            font-size: 12px;
         }
 
         .data-table tbody tr:nth-child(even) {
@@ -153,20 +159,21 @@
         }
 
         .data-table tbody tr:hover {
-            background-color: #f0ebe6;
+            background-color:#f9f7f4;;
         }
 
         .no-data {
-            padding: 30px;
+            padding: 30px 20px;
             text-align: center;
             color: #666;
             font-style: italic;
+            font-size: 14px;
         }
 
         .logout-btn {
             position: fixed;
             bottom: 20px;
-            right: 20px;
+            left: 20px;
             background: linear-gradient(135deg, #dc3545, #c82333);
             color: white;
             padding: 12px 24px;
@@ -179,6 +186,7 @@
             letter-spacing: 1px;
             transition: all 0.3s;
             box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            z-index: 1000;
         }
 
         .logout-btn:hover {
@@ -204,12 +212,29 @@
                 flex-direction: column;
                 align-items: flex-start;
             }
+            
+            .logout-btn {
+                left: 10px;
+                bottom: 10px;
+                padding: 10px 20px;
+                font-size: 12px;
+            }
+
+            .data-table {
+                font-size: 11px;
+            }
+
+            .data-table th, .data-table td {
+                padding: 6px 8px;
+                font-size: 11px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="sidebar">
         <ul class="sidebar-menu">
+            <li><a href="{{ route('dashboard') }}">Dashboard</a></li>
             <li><a href="{{ route('barang.index') }}">Kelola Barang</a></li>
             <li><a href="{{ route('penjualan.index') }}">Penjualan</a></li>
         </ul>
@@ -221,12 +246,12 @@
         </div>
 
         <div class="filter-section">
-            <form method="GET" class="filter-form">
+            <form method="GET" action="{{ route('dashboard') }}" class="filter-form">
                 <label for="tanggal">Tanggal Penjualan:</label>
-                <input type="date" id="tanggal" name="tanggal" value="{{ $tanggal }}">
+                <input type="date" id="tanggal" name="tanggal" value="{{ request('tanggal') }}">
                 
                 <label for="tanggal_barang">Tanggal Barang:</label>
-                <input type="date" id="tanggal_barang" name="tanggal_barang" value="{{ $tanggalBarang }}">
+                <input type="date" id="tanggal_barang" name="tanggal_barang" value="{{ request('tanggal_barang') }}">
                 
                 <button type="submit" class="filter-btn">Filter</button>
             </form>

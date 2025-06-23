@@ -71,18 +71,19 @@ class PenjualanController extends Controller
     return redirect()->route('penjualan.index')->with('success', 'Penjualan berhasil.');
 }
 
-        public function destroy($id)
-        {
-            $penjualan = Penjualan::findOrFail($id);
+public function destroy($id)
+{
+    $penjualan = Penjualan::with('barang')->findOrFail($id);
 
-    // Tambahkan kembali stok barang
-            $barang = $penjualan->barang;
-            $barang->kuantitas += $penjualan->jumlah;
-            $barang->save();
+    // Cek apakah relasi barang tersedia
+    if ($penjualan->barang) {
+        $barang = $penjualan->barang;
+        $barang->kuantitas += $penjualan->jumlah;
+        $barang->save();
+    }
 
-            $penjualan->delete();
+    $penjualan->delete();
 
-            return redirect()->route('penjualan.index')->with('success', 'Penjualan berhasil dibatalkan.');
+    return redirect()->route('penjualan.index')->with('success', 'Penjualan berhasil dibatalkan.');
 }
-
 }

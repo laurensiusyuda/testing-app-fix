@@ -334,6 +334,7 @@
 <body>
     <div class="sidebar">
         <ul class="sidebar-menu">
+            <li><a href="{{ route('barang.index') }}">Kelola Barang</a></li>
             <li><a href="{{ route('dashboard') }}">dashboard</a></li>
             <li><a href="{{ route('penjualan.index') }}">penjualan</a></li>
         </ul>
