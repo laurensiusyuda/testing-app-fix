@@ -116,36 +116,42 @@
             border-radius: 8px;
             overflow: hidden;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            margin-bottom: 30px;
+            margin-bottom: 20px;
+            min-height: 200px;
         }
 
         .table-header {
             background: linear-gradient(135deg, #b4746f, #8b5a57);
             color: white;
-            padding: 15px 20px;
-            font-size: 1.2rem;
+            padding: 10px 15px;
+            font-size: 1rem;
             font-weight: bold;
         }
 
         .data-table {
             width: 100%;
             border-collapse: collapse;
+            min-height: 80px;
+            font-size: 13px;
         }
 
         .data-table th {
             background: #e8e2dd;
-            padding: 12px;
+            padding: 1px 10px;
             text-align: center;
             font-weight: bold;
             color: #333;
             border: 1px solid #d0c7bf;
+            font-size: 12px;
         }
 
         .data-table td {
-            padding: 12px;
+            padding: 8px 10px;
             text-align: center;
             border: 1px solid #d0c7bf;
             color: #333;
+            vertical-align: middle;
+            font-size: 12px;
         }
 
         .data-table tbody tr:nth-child(even) {
@@ -153,14 +159,15 @@
         }
 
         .data-table tbody tr:hover {
-            background-color: #f0ebe6;
+            background-color:#f9f7f4;;
         }
 
         .no-data {
-            padding: 30px;
+            padding: 30px 20px;
             text-align: center;
             color: #666;
             font-style: italic;
+            font-size: 14px;
         }
 
         .logout-btn {
@@ -212,6 +219,15 @@
                 padding: 10px 20px;
                 font-size: 12px;
             }
+
+            .data-table {
+                font-size: 11px;
+            }
+
+            .data-table th, .data-table td {
+                padding: 6px 8px;
+                font-size: 11px;
+            }
         }
     </style>
 </head>
@@ -230,12 +246,12 @@
         </div>
 
         <div class="filter-section">
-            <form method="GET" class="filter-form">
+            <form method="GET" action="{{ route('dashboard') }}" class="filter-form">
                 <label for="tanggal">Tanggal Penjualan:</label>
-                <input type="date" id="tanggal" name="tanggal" value="">
+                <input type="date" id="tanggal" name="tanggal" value="{{ request('tanggal') }}">
                 
                 <label for="tanggal_barang">Tanggal Barang:</label>
-                <input type="date" id="tanggal_barang" name="tanggal_barang" value="">
+                <input type="date" id="tanggal_barang" name="tanggal_barang" value="{{ request('tanggal_barang') }}">
                 
                 <button type="submit" class="filter-btn">Filter</button>
             </form>
@@ -248,37 +264,23 @@
             <table class="data-table">
                 <thead>
                     <tr>
-                        <th>TOTAL BARANG</th>
-                        <th>TOTAL PENJUALAN</th>
+                        <th>NAMA BARANG</th>
+                        <th>JUMLAH TERJUAL</th>
                         <th>TANGGAL PENJUALAN</th>
                     </tr>
                 </thead>
                 <tbody>
+                    @forelse ($penjualans as $p)
                     <tr>
-                        <td>500 tepung</td>
-                        <td>100 pcs</td>
-                        <td>sabtu/24/2025</td>
+                        <td>{{ $p->barang->nama ?? '-' }}</td>
+                        <td>{{ $p->jumlah }} pcs</td>
+                        <td>{{ $p->tanggal->format('l, d/m/Y') }}</td>
                     </tr>
+                    @empty
                     <tr>
-                        <td>500 gula</td>
-                        <td>100 pcs</td>
-                        <td>sabtu/24/2025</td>
+                        <td colspan="3" class="no-data">Tidak ada data penjualan.</td>
                     </tr>
-                    <tr>
-                        <td>500 baking powder</td>
-                        <td>100 pcs</td>
-                        <td>sabtu/24/2025</td>
-                    </tr>
-                    <tr>
-                        <td>500 tepung</td>
-                        <td>100 pcs</td>
-                        <td>sabtu/24/2025</td>
-                    </tr>
-                    <tr>
-                        <td>500 tepung</td>
-                        <td>100 pcs</td>
-                        <td>sabtu/24/2025</td>
-                    </tr>
+                    @endforelse
                 </tbody>
             </table>
         </div>
@@ -298,9 +300,19 @@
                     </tr>
                 </thead>
                 <tbody>
+                    @forelse ($barangs as $i => $b)
+                    <tr>
+                        <td>{{ $i + 1 }}</td>
+                        <td>{{ $b->nama }}</td>
+                        <td>Rp {{ number_format($b->harga, 0, ',', '.') }}</td>
+                        <td>{{ $b->kuantitas }}</td>
+                        <td>{{ $b->created_at->format('l, d/m/Y') }}</td>
+                    </tr>
+                    @empty
                     <tr>
                         <td colspan="5" class="no-data">Tidak ada data barang.</td>
                     </tr>
+                    @endforelse
                 </tbody>
             </table>
         </div>
