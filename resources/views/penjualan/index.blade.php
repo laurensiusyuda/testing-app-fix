@@ -169,7 +169,7 @@
         }
 
         .btn-jual-table {
-            background: linear-gradient(135deg, #28a745, #20c997);
+            background: linear-gradient(135deg,rgb(255, 3, 3),rgb(243, 55, 55));
             color: white;
             padding: 8px 16px;
             border: none;
@@ -310,7 +310,7 @@
                             <form method="POST" action="{{ route('penjualan.destroy', $p->id) }}" onsubmit="return confirm('Yakin ingin membatalkan penjualan ini?')" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn-jual-table">JUAL</button>
+                                <button type="submit" class="btn-jual-table">CANCEL</button>
                             </form>
                         </td>
                     </tr>
