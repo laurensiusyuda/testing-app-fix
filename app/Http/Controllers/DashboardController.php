@@ -52,7 +52,6 @@ class DashboardController extends Controller
         });
 
         // Membuat instance Paginator baru untuk Laporan Laba Rugi
-        // Ini adalah kunci agar paginasi di view bisa bekerja
         $laporan = new LengthAwarePaginator(
             $laporanData,
             $penjualans->total(),
@@ -75,6 +74,61 @@ class DashboardController extends Controller
             ->paginate(5, ['*'], 'barang_page')
             ->withQueryString();
 
-        return view('dashboard.index', compact('penjualans', 'barangs', 'tanggal', 'tanggalBarang', 'laporan'));
+        return view('dashboard.index', compact(
+            'penjualans', 
+            'barangs', 
+            'tanggal', 
+            'tanggalBarang', 
+            'laporan'
+        ));
+    }
+
+    /**
+     * Method untuk print semua data (opsional - jika ingin handling khusus untuk print)
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\View\View
+     */
+    public function printAll(Request $request)
+    {
+        $tanggal = $request->input('tanggal');
+        $tanggalBarang = $request->input('tanggal_barang');
+
+        // Ambil semua data tanpa paginasi untuk print
+        $penjualans = Penjualan::with('barang')
+            ->when($tanggal, function ($query) use ($tanggal) {
+                return $query->whereDate('tanggal', $tanggal);
+            })
+            ->latest()
+            ->get();
+
+        $barangs = Barang::when($tanggalBarang, function ($query) use ($tanggalBarang) {
+                return $query->whereDate('created_at', $tanggalBarang);
+            })
+            ->latest()
+            ->get();
+
+        // Buat laporan laba rugi dari semua data penjualan
+        $laporanData = $penjualans->map(function ($p) {
+            $hargaBeli = $p->barang->harga_beli ?? 0;
+            $hargaJual = $p->harga_jual ?? ($p->jumlah > 0 ? $p->total_harga / $p->jumlah : 0);
+            $laba = ($hargaJual - $hargaBeli) * $p->jumlah;
+
+            return [
+                'tanggal' => optional($p->tanggal)->format('l, d/m/Y'),
+                'nama_barang' => $p->barang->nama ?? 'N/A',
+                'harga_beli' => $hargaBeli,
+                'harga_jual' => $hargaJual,
+                'laba' => $laba,
+            ];
+        });
+
+        return view('dashboard.print-all', compact(
+            'penjualans', 
+            'barangs', 
+            'tanggal', 
+            'tanggalBarang', 
+            'laporanData'
+        ));
     }
 }
