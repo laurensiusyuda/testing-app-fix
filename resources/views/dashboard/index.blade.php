@@ -12,8 +12,8 @@
         }
 
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f5f1eb;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f1eb 0%, #e8ddd4 100%);
             display: flex;
             min-height: 100vh;
         }
@@ -24,6 +24,7 @@
             padding: 20px 0;
             position: fixed;
             height: 100vh;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.1);
         }
 
         .sidebar-menu {
@@ -48,6 +49,7 @@
         .sidebar-menu a.active {
             background-color: #d4a574;
             color: #333;
+            transform: translateX(5px);
         }
 
         .main-content {
@@ -66,108 +68,192 @@
             color: #333;
             font-weight: bold;
             letter-spacing: 2px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
         }
 
         .filter-section {
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            background: linear-gradient(135deg, #ffffff 0%, #f8f6f3 100%);
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border: 1px solid #e0d5cc;
         }
 
         .filter-form {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 20px;
             flex-wrap: wrap;
         }
 
         .filter-form label {
-            font-weight: bold;
-            color: #333;
+            font-weight: 600;
+            color: #555;
+            font-size: 14px;
         }
 
         .filter-form input[type="date"] {
-            padding: 8px 12px;
-            border: 2px solid #ddd;
-            border-radius: 4px;
+            padding: 10px 15px;
+            border: 2px solid #d0c7bf;
+            border-radius: 8px;
             font-size: 14px;
+            background: white;
+            transition: all 0.3s;
+        }
+
+        .filter-form input[type="date"]:focus {
+            outline: none;
+            border-color: #b4746f;
+            box-shadow: 0 0 0 3px rgba(180, 116, 111, 0.1);
         }
 
         .filter-btn {
             background: linear-gradient(135deg, #b4746f, #8b5a57);
             color: white;
-            padding: 10px 20px;
+            padding: 12px 25px;
             border: none;
-            border-radius: 4px;
+            border-radius: 8px;
             cursor: pointer;
             font-weight: bold;
             transition: all 0.3s;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .filter-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            box-shadow: 0 6px 20px rgba(180, 116, 111, 0.3);
         }
 
         .table-container {
-            background: white;
-            border-radius: 8px;
+            background: linear-gradient(135deg, #ffffff 0%, #fdfcfa 100%);
+            border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            margin-bottom: 20px;
-            min-height: 200px;
+            box-shadow: 0 6px 25px rgba(0,0,0,0.1);
+            margin-bottom: 25px;
+            border: 1px solid #e8ddd4;
         }
 
         .table-header {
             background: linear-gradient(135deg, #b4746f, #8b5a57);
             color: white;
-            padding: 10px 15px;
-            font-size: 1rem;
+            padding: 15px 20px;
+            font-size: 1.1rem;
             font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .data-table {
             width: 100%;
             border-collapse: collapse;
-            min-height: 80px;
-            font-size: 13px;
+            font-size: 14px;
+            background: white;
         }
 
         .data-table th {
-            background: #e8e2dd;
-            padding: 1px 10px;
+            background: linear-gradient(135deg, #f0ebe6 0%, #e8ddd4 100%);
+            padding: 15px 12px;
             text-align: center;
-            font-weight: bold;
-            color: #333;
-            border: 1px solid #d0c7bf;
-            font-size: 12px;
+            font-weight: 600;
+            color: #444;
+            border-bottom: 2px solid #d0c7bf;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .data-table td {
-            padding: 8px 10px;
+            padding: 15px 12px;
             text-align: center;
-            border: 1px solid #d0c7bf;
-            color: #333;
+            border-bottom: 1px solid #f0ebe6;
+            color: #555;
             vertical-align: middle;
-            font-size: 12px;
+            font-size: 13px;
+            transition: all 0.3s;
+        }
+
+        .data-table tbody tr {
+            transition: all 0.3s;
         }
 
         .data-table tbody tr:nth-child(even) {
-            background-color: #f9f7f4;
+            background: linear-gradient(135deg, #fdfcfa 0%, #f9f7f4 100%);
         }
 
         .data-table tbody tr:hover {
-            background-color:#f9f7f4;;
+            background: linear-gradient(135deg, #f5f1eb 0%, #ede7de 100%);
+            transform: scale(1.01);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
 
         .no-data {
-            padding: 30px 20px;
+            padding: 40px 20px;
             text-align: center;
-            color: #666;
+            color: #888;
             font-style: italic;
+            font-size: 16px;
+        }
+
+        /* Pagination Styles */
+        .pagination-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            background: linear-gradient(135deg, #f8f6f3 0%, #f0ebe6 100%);
+            border-top: 1px solid #e8ddd4;
+        }
+
+        .pagination {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .pagination-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 16px;
+            background: linear-gradient(135deg, #b4746f, #8b5a57);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
             font-size: 14px;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            min-width: 100px;
+        }
+
+        .pagination-btn:hover {
+            background: linear-gradient(135deg, #8b5a57, #6d453f);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(180, 116, 111, 0.3);
+        }
+
+        .pagination-btn.disabled {
+            background: linear-gradient(135deg, #ccc, #bbb);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .pagination-btn.disabled:hover {
+            background: linear-gradient(135deg, #ccc, #bbb);
+            transform: none;
+            box-shadow: none;
+        }
+
+        .pagination-info {
+            margin: 0 20px;
+            font-size: 14px;
+            color: #666;
+            font-weight: 500;
         }
 
         .logout-btn {
@@ -178,20 +264,36 @@
             color: white;
             padding: 12px 24px;
             border: none;
-            border-radius: 6px;
+            border-radius: 8px;
             cursor: pointer;
             font-weight: bold;
             font-size: 14px;
             text-transform: uppercase;
             letter-spacing: 1px;
             transition: all 0.3s;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            box-shadow: 0 4px 15px rgba(220, 53, 69, 0.3);
             z-index: 1000;
         }
 
         .logout-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(220, 53, 69, 0.4);
+        }
+
+        /* Arrow icons for pagination */
+        .pagination-btn::before {
+            content: '';
+            margin-right: 8px;
+        }
+
+        .pagination-btn.prev::before {
+            content: '←';
+            margin-right: 5px;
+        }
+
+        .pagination-btn.next::after {
+            content: '→';
+            margin-left: 5px;
         }
 
         @media (max-width: 768px) {
@@ -221,12 +323,23 @@
             }
 
             .data-table {
-                font-size: 11px;
+                font-size: 12px;
             }
 
             .data-table th, .data-table td {
-                padding: 6px 8px;
-                font-size: 11px;
+                padding: 10px 8px;
+                font-size: 12px;
+            }
+
+            .pagination-btn {
+                padding: 8px 12px;
+                font-size: 12px;
+                min-width: 80px;
+            }
+
+            .pagination-info {
+                font-size: 12px;
+                margin: 0 10px;
             }
         }
     </style>
@@ -264,10 +377,10 @@
             <table class="data-table">
                 <thead>
                     <tr>
-                    <th>TANGGAL PENJUALAN</th>    
-                    <th>NAMA BARANG</th>
-                    <th>JUMLAH BARANG</th>
-                    <th>TOTAL HARGA</th>
+                        <th>TANGGAL PENJUALAN</th>    
+                        <th>NAMA BARANG</th>
+                        <th>JUMLAH BARANG</th>
+                        <th>TOTAL HARGA</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -280,14 +393,14 @@
                     </tr>
                     @empty
                     <tr>
-                        <td colspan="3" class="no-data">Tidak ada data penjualan.</td>
+                        <td colspan="4" class="no-data">Tidak ada data penjualan.</td>
                     </tr>
                     @endforelse
                 </tbody>
             </table>
             <div class="mt-4">
                 {{ $penjualans->links('pagination::tailwind') }}
-                </div>
+            </div>
         </div>
 
         <div class="table-container">
@@ -320,50 +433,58 @@
                     @endforelse
                 </tbody>
             </table>
-            <div class="mt-4 flex justify-between items-center">
-    @if ($barangs->onFirstPage())
-        <span class="text-gray-400">← Prev</span>
-    @else
-        <a href="{{ $barangs->previousPageUrl() }}" class="text-blue-500 hover:underline">← Prev</a>
-    @endif
+            <div class="pagination-container">
+                <div class="pagination">
+                    @if ($barangs->onFirstPage())
+                        <button class="pagination-btn prev disabled" disabled>Previous</button>
+                    @else
+                        <a href="{{ $barangs->previousPageUrl() }}" class="pagination-btn prev">Previous</a>
+                    @endif
 
-    @if ($barangs->hasMorePages())
-        <a href="{{ $barangs->nextPageUrl() }}" class="text-blue-500 hover:underline">Next →</a>
-    @else
-        <span class="text-gray-400">Next →</span>
-    @endif
-</div>
-            <div class="table-container">
+                    <div class="pagination-info">
+                        Page {{ $barangs->currentPage() }} of {{ $barangs->lastPage() }}
+                    </div>
+
+                    @if ($barangs->hasMorePages())
+                        <a href="{{ $barangs->nextPageUrl() }}" class="pagination-btn next">Next</a>
+                    @else
+                        <button class="pagination-btn next disabled" disabled>Next</button>
+                    @endif
+                </div>
+            </div>
+        </div>
+
+        <div class="table-container">
             <div class="table-header">
                 Laporan Laba Rugi
             </div>
             <table class="data-table">
                 <thead>
-            <tr>
-                <th >Tanggal</th>
-                <th >Nama Barang</th>
-                <th >Harga Beli</th>
-                <th >Harga Jual</th>
-                <th >Laba</th>
-            </tr>
-        </thead>
-        <tbody>
-            @forelse($laporan as $row)
-                <tr>
-                    <td >{{ $row['tanggal'] }}</td>
-                    <td >{{ $row['nama_barang'] }}</td>
-                    <td >Rp {{ number_format($row['harga_beli']) }}</td>
-                    <td >Rp {{ number_format($row['harga_jual']) }}</td>
-                    <td >Rp {{ number_format($row['laba']) }}</td>
-                </tr>
-            @empty
-                <tr>
-                    <td colspan="5" class="text-center p-2">Belum ada data penjualan.</td>
-                </tr>
-            @endforelse
-        </tbody>
-    </table>
-
+                    <tr>
+                        <th>Tanggal</th>
+                        <th>Nama Barang</th>
+                        <th>Harga Beli</th>
+                        <th>Harga Jual</th>
+                        <th>Laba</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse($laporan as $row)
+                        <tr>
+                            <td>{{ $row['tanggal'] }}</td>
+                            <td>{{ $row['nama_barang'] }}</td>
+                            <td>Rp {{ number_format($row['harga_beli']) }}</td>
+                            <td>Rp {{ number_format($row['harga_jual']) }}</td>
+                            <td>Rp {{ number_format($row['laba']) }}</td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="5" class="no-data">Belum ada data penjualan.</td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
     </div>
     
     <form method="POST" action="{{ route('logout') }}" style="display: inline;">

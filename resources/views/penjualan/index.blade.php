@@ -41,15 +41,15 @@
             color: white;
             text-decoration: none;
             font-weight: bold;
-            font-size: 14px;
             transition: all 0.3s;
         }
 
         .sidebar-menu a:hover,
         .sidebar-menu a.active {
-            background-color: #d4a574;
-            color: #333;
-        }
+        background-color: #d4a574;
+        color: #333;
+        transform: translateX(5px);
+    }
 
         .main-content {
             margin-left: 200px;
@@ -248,9 +248,9 @@
 <body>
     <div class="sidebar">
         <ul class="sidebar-menu">
-            <li><a href="{{ route('penjualan.index') }}">penjualan</a></li>
-            <li><a href="{{ route('dashboard') }}">dashboard</a></li>
-            <li><a href="{{ route('barang.index') }}">Kelola barang</a></li> 
+            <li><a href="{{ route('dashboard') }}">Dashboard</a></li>
+            <li><a href="{{ route('barang.index') }}">Kelola Barang</a></li>
+            <li><a href="{{ route('penjualan.index') }}">Penjualan</a></li>
         </ul>
     </div>
 

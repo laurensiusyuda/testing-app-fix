@@ -28,6 +28,8 @@ Route::middleware(['auth'])->group(function () {
     // Barang routes
     Route::get('/barang', [BarangController::class, 'index'])->name('barang.index');
     Route::post('/barang', [BarangController::class, 'store'])->name('barang.store');
+    Route::get('/barang/{id}/edit', [BarangController::class, 'edit'])->name('barang.edit'); 
+    Route::put('/barang/{id}', [BarangController::class, 'update'])->name('barang.update'); 
     Route::delete('/barang/{id}', [BarangController::class, 'destroy'])->name('barang.destroy');
     Route::post('/barang/undo', [BarangController::class, 'undo'])->name('barang.undo');
 

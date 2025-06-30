@@ -12,8 +12,8 @@
         }
 
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f5f1eb;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f1eb 0%, #e8ddd4 100%);
             display: flex;
             min-height: 100vh;
         }
@@ -24,6 +24,7 @@
             padding: 20px 0;
             position: fixed;
             height: 100vh;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.1);
         }
 
         .sidebar-menu {
@@ -41,7 +42,6 @@
             color: white;
             text-decoration: none;
             font-weight: bold;
-            font-size: 14px;
             transition: all 0.3s;
         }
 
@@ -49,6 +49,7 @@
         .sidebar-menu a.active {
             background-color: #d4a574;
             color: #333;
+            transform: translateX(5px);
         }
 
         .main-content {
@@ -68,73 +69,88 @@
             font-weight: bold;
             letter-spacing: 2px;
             margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
         }
 
         .success-message {
-            background: #d1edff;
+            background: linear-gradient(135deg, #d1edff 0%, #bee5eb 100%);
             border: 1px solid #bee5eb;
             color: #0c5460;
             padding: 15px;
-            border-radius: 6px;
+            border-radius: 8px;
             margin-bottom: 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
 
         .undo-btn {
-            background: #007bff;
+            background: linear-gradient(135deg, #007bff, #0056b3);
             color: white;
-            padding: 5px 10px;
+            padding: 8px 15px;
             border: none;
-            border-radius: 4px;
+            border-radius: 6px;
             cursor: pointer;
             font-size: 12px;
             text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
         }
 
         .undo-btn:hover {
-            background: #0056b3;
+            transform: translateY(-1px);
+            box-shadow: 0 3px 8px rgba(0, 123, 255, 0.3);
         }
 
         .table-container {
-            background: white;
-            border-radius: 8px;
+            background: linear-gradient(135deg, #ffffff 0%, #fdfcfa 100%);
+            border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            box-shadow: 0 6px 25px rgba(0,0,0,0.1);
             margin-bottom: 30px;
+            border: 1px solid #e8ddd4;
         }
 
         .data-table {
             width: 100%;
             border-collapse: collapse;
+            background: white;
         }
 
         .data-table th {
-            background: #e8e2dd;
+            background: linear-gradient(135deg, #f0ebe6 0%, #e8ddd4 100%);
             padding: 15px 12px;
             text-align: center;
-            font-weight: bold;
-            color: #333;
-            border: 1px solid #d0c7bf;
+            font-weight: 600;
+            color: #444;
+            border-bottom: 2px solid #d0c7bf;
             font-size: 14px;
             text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .data-table td {
             padding: 15px 12px;
             text-align: center;
-            border: 1px solid #d0c7bf;
-            color: #333;
+            border-bottom: 1px solid #f0ebe6;
+            color: #555;
             font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        .data-table tbody tr {
+            transition: all 0.3s;
         }
 
         .data-table tbody tr:nth-child(even) {
-            background-color: #f9f7f4;
+            background: linear-gradient(135deg, #fdfcfa 0%, #f9f7f4 100%);
         }
 
         .data-table tbody tr:hover {
-            background-color: #f0ebe6;
+            background: linear-gradient(135deg, #f5f1eb 0%, #ede7de 100%);
+            transform: scale(1.01);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
 
         /* Updated Action Buttons Styles */
@@ -161,25 +177,25 @@
         }
 
         .btn-edit {
-            background-color: #6fa8dc;
+            background: linear-gradient(135deg, #6fa8dc, #5a8bb8);
             color: white;
         }
 
         .btn-edit:hover {
-            background-color: #5a8bb8;
+            background: linear-gradient(135deg, #5a8bb8, #4a7496);
             transform: translateY(-1px);
-            box-shadow: 0 2px 4px rgba(111, 168, 220, 0.3);
+            box-shadow: 0 4px 12px rgba(111, 168, 220, 0.3);
         }
 
         .btn-hapus {
-            background-color: #e06666;
+            background: linear-gradient(135deg, #e06666, #cc5555);
             color: white;
         }
 
         .btn-hapus:hover {
-            background-color: #cc5555;
+            background: linear-gradient(135deg, #cc5555, #b84444);
             transform: translateY(-1px);
-            box-shadow: 0 2px 4px rgba(224, 102, 102, 0.3);
+            box-shadow: 0 4px 12px rgba(224, 102, 102, 0.3);
         }
 
         /* Icons using CSS */
@@ -193,6 +209,72 @@
             font-size: 14px;
         }
 
+        /* Pagination Styles - FIXED */
+        .pagination-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            background: linear-gradient(135deg, #f8f6f3 0%, #f0ebe6 100%);
+            border-top: 1px solid #e8ddd4;
+        }
+
+        .pagination {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .pagination-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 16px;
+            background: linear-gradient(135deg, #b4746f, #8b5a57);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            min-width: 100px;
+        }
+
+        .pagination-btn:hover:not(.disabled) {
+            background: linear-gradient(135deg, #8b5a57, #6d453f);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(180, 116, 111, 0.3);
+        }
+
+        .pagination-btn.disabled {
+            background: linear-gradient(135deg, #ccc, #bbb) !important;
+            cursor: not-allowed !important;
+            transform: none !important;
+            box-shadow: none !important;
+            opacity: 0.6;
+            pointer-events: none;
+        }
+
+        .pagination-info {
+            margin: 0 20px;
+            font-size: 14px;
+            color: #666;
+            font-weight: 500;
+        }
+
+        /* Arrow icons for pagination */
+        .pagination-btn.prev::before {
+            content: '←';
+            margin-right: 5px;
+        }
+
+        .pagination-btn.next::after {
+            content: '→';
+            margin-left: 5px;
+        }
+
         .section-title {
             font-size: 1.8rem;
             color: #333;
@@ -200,13 +282,16 @@
             margin: 40px 0 20px 0;
             text-transform: uppercase;
             letter-spacing: 1px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
         }
 
         .form-section {
-            background: white;
+            background: linear-gradient(135deg, #ffffff 0%, #fdfcfa 100%);
             padding: 0;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border-radius: 12px;
+            box-shadow: 0 6px 25px rgba(0,0,0,0.1);
+            border: 1px solid #e8ddd4;
+            overflow: hidden;
         }
 
         .form-table {
@@ -215,19 +300,20 @@
         }
 
         .form-table th {
-            background: #e8e2dd;
+            background: linear-gradient(135deg, #f0ebe6 0%, #e8ddd4 100%);
             padding: 15px 12px;
             text-align: center;
-            font-weight: bold;
-            color: #333;
-            border: 1px solid #d0c7bf;
+            font-weight: 600;
+            color: #444;
+            border-bottom: 2px solid #d0c7bf;
             font-size: 14px;
             text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .form-table td {
             padding: 0;
-            border: 1px solid #d0c7bf;
+            border-bottom: 1px solid #f0ebe6;
         }
 
         .form-input {
@@ -238,10 +324,11 @@
             font-size: 14px;
             text-align: center;
             outline: none;
+            transition: all 0.3s;
         }
 
         .form-input:focus {
-            background-color: #f0ebe6;
+            background: linear-gradient(135deg, #f5f1eb 0%, #ede7de 100%);
         }
 
         .btn-tambah {
@@ -259,13 +346,16 @@
 
         .btn-tambah:hover {
             background: linear-gradient(135deg, #218838, #1ea085);
+            transform: scale(1.02);
+            box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
         }
 
         .no-data {
-            padding: 30px;
+            padding: 40px;
             text-align: center;
-            color: #666;
+            color: #888;
             font-style: italic;
+            font-size: 16px;
         }
 
         .back-btn {
@@ -277,20 +367,21 @@
             background: linear-gradient(135deg, #dc3545, #c82333);
             color: white;
             border: none;
-            border-radius: 8px;
+            border-radius: 12px;
             cursor: pointer;
             font-size: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
             transition: all 0.3s;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            box-shadow: 0 4px 15px rgba(220, 53, 69, 0.3);
             text-decoration: none;
+            z-index: 1000;
         }
 
         .back-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(220, 53, 69, 0.4);
         }
 
         @media (max-width: 768px) {
@@ -328,15 +419,26 @@
                 padding: 6px 12px;
                 font-size: 10px;
             }
+
+            .pagination-btn {
+                padding: 8px 12px;
+                font-size: 12px;
+                min-width: 80px;
+            }
+
+            .pagination-info {
+                font-size: 12px;
+                margin: 0 10px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="sidebar">
         <ul class="sidebar-menu">
+            <li><a href="{{ route('dashboard') }}">Dashboard</a></li>
             <li><a href="{{ route('barang.index') }}">Kelola Barang</a></li>
-            <li><a href="{{ route('dashboard') }}">dashboard</a></li>
-            <li><a href="{{ route('penjualan.index') }}">penjualan</a></li>
+            <li><a href="{{ route('penjualan.index') }}">Penjualan</a></li>
         </ul>
     </div>
 
@@ -393,20 +495,26 @@
                     @endforelse
                 </tbody>
             </table>
-            <div class="mt-4 flex justify-between items-center">
-    @if ($barangs->onFirstPage())
-        <span class="text-gray-400">← Prev</span>
-    @else
-        <a href="{{ $barangs->previousPageUrl() }}" class="text-blue-500 hover:underline">← Prev</a>
-    @endif
+            
+            <div class="pagination-container">
+                <div class="pagination">
+                    @if ($barangs->onFirstPage())
+                        <span class="pagination-btn prev disabled">Previous</span>
+                    @else
+                        <a href="{{ $barangs->previousPageUrl() }}" class="pagination-btn prev">Previous</a>
+                    @endif
 
-    @if ($barangs->hasMorePages())
-        <a href="{{ $barangs->nextPageUrl() }}" class="text-blue-500 hover:underline">Next →</a>
-    @else
-        <span class="text-gray-400">Next →</span>
-    @endif
-</div>
+                    <div class="pagination-info">
+                        Page {{ $barangs->currentPage() }} of {{ $barangs->lastPage() }}
+                    </div>
 
+                    @if ($barangs->hasMorePages())
+                        <a href="{{ $barangs->nextPageUrl() }}" class="pagination-btn next">Next</a>
+                    @else
+                        <span class="pagination-btn next disabled">Next</span>
+                    @endif
+                </div>
+            </div>
         </div>
 
         <h2 class="section-title">TAMBAH BARANG</h2>
