@@ -144,6 +144,28 @@
             font-weight: bold;
             text-transform: uppercase;
             letter-spacing: 1px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .print-btn {
+            background: linear-gradient(135deg, #28a745, #20903c);
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+        }
+
+        .print-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
         }
 
         .data-table {
@@ -296,6 +318,38 @@
             margin-left: 5px;
         }
 
+        /* Print styles */
+        @media print {
+            .sidebar, .logout-btn, .pagination-container, .print-btn, .filter-section {
+                display: none !important;
+            }
+            
+            .main-content {
+                margin-left: 0;
+                padding: 10px;
+            }
+            
+            .table-container {
+                break-inside: avoid;
+                margin-bottom: 20px;
+                box-shadow: none;
+                border: 1px solid #ccc;
+            }
+            
+            .data-table {
+                font-size: 10px;
+            }
+            
+            .data-table th, .data-table td {
+                padding: 5px;
+                font-size: 10px;
+            }
+            
+            body {
+                background: white;
+            }
+        }
+
         @media (max-width: 768px) {
             .sidebar {
                 width: 150px;
@@ -341,6 +395,12 @@
                 font-size: 12px;
                 margin: 0 10px;
             }
+
+            .table-header {
+                flex-direction: column;
+                gap: 10px;
+                text-align: center;
+            }
         }
     </style>
 </head>
@@ -372,7 +432,8 @@
 
         <div class="table-container">
             <div class="table-header">
-                Data Penjualan
+                <span>Data Penjualan</span>
+                <button onclick="printPDF()" class="print-btn">Print PDF</button>
             </div>
             <table class="data-table">
                 <thead>
@@ -398,14 +459,31 @@
                     @endforelse
                 </tbody>
             </table>
-            <div class="mt-4">
-                {{ $penjualans->links('pagination::tailwind') }}
+            <div class="pagination-container">
+                <div class="pagination">
+                    @if ($penjualans->onFirstPage())
+                        <button class="pagination-btn prev disabled" disabled>Previous</button>
+                    @else
+                        <a href="{{ $penjualans->previousPageUrl() }}" class="pagination-btn prev">Previous</a>
+                    @endif
+
+                    <div class="pagination-info">
+                        Page {{ $penjualans->currentPage() }} of {{ $penjualans->lastPage() }}
+                    </div>
+
+                    @if ($penjualans->hasMorePages())
+                        <a href="{{ $penjualans->nextPageUrl() }}" class="pagination-btn next">Next</a>
+                    @else
+                        <button class="pagination-btn next disabled" disabled>Next</button>
+                    @endif
+                </div>
             </div>
         </div>
 
         <div class="table-container">
             <div class="table-header">
-                Data Barang
+                <span>Data Barang</span>
+                <button onclick="printPDF()" class="print-btn">Print PDF</button>
             </div>
             <table class="data-table">
                 <thead>
@@ -456,7 +534,8 @@
 
         <div class="table-container">
             <div class="table-header">
-                Laporan Laba Rugi
+                <span>Laporan Laba Rugi</span>
+                <button onclick="printPDF()" class="print-btn">Print PDF</button>
             </div>
             <table class="data-table">
                 <thead>
@@ -484,6 +563,25 @@
                     @endforelse
                 </tbody>
             </table>
+            <div class="pagination-container">
+                <div class="pagination">
+                    @if ($laporan->onFirstPage())
+                        <button class="pagination-btn prev disabled" disabled>Previous</button>
+                    @else
+                        <a href="{{ $laporan->previousPageUrl() }}" class="pagination-btn prev">Previous</a>
+                    @endif
+
+                    <div class="pagination-info">
+                        Page {{ $laporan->currentPage() }} of {{ $laporan->lastPage() }}
+                    </div>
+
+                    @if ($laporan->hasMorePages())
+                        <a href="{{ $laporan->nextPageUrl() }}" class="pagination-btn next">Next</a>
+                    @else
+                        <button class="pagination-btn next disabled" disabled>Next</button>
+                    @endif
+                </div>
+            </div>
         </div>
     </div>
     
@@ -491,5 +589,11 @@
         @csrf
         <button type="submit" class="logout-btn">LOGOUT</button>
     </form>
+
+    <script>
+        function printPDF() {
+            window.print();
+        }
+    </script>
 </body>
 </html>
