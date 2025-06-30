@@ -398,8 +398,24 @@
                     @endforelse
                 </tbody>
             </table>
-            <div class="mt-4">
-                {{ $penjualans->links('pagination::tailwind') }}
+            <div class="pagination-container">
+                <div class="pagination">
+                    @if ($penjualans->onFirstPage())
+                        <button class="pagination-btn prev disabled" disabled>Previous</button>
+                    @else
+                        <a href="{{ $penjualans->previousPageUrl() }}" class="pagination-btn prev">Previous</a>
+                    @endif
+
+                    <div class="pagination-info">
+                        Page {{ $penjualans->currentPage() }} of {{ $penjualans->lastPage() }}
+                    </div>
+
+                    @if ($penjualans->hasMorePages())
+                        <a href="{{ $penjualans->nextPageUrl() }}" class="pagination-btn next">Next</a>
+                    @else
+                        <button class="pagination-btn next disabled" disabled>Next</button>
+                    @endif
+                </div>
             </div>
         </div>
 
