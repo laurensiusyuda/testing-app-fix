@@ -13,7 +13,14 @@ Route::get('/', function () {
     if (Auth::check()) {
         return redirect()->route('dashboard');
     }
-    
+Route::get('/db-check', function () {
+    try {
+        \DB::connection()->getPdo();
+        return 'Database connection successful!';
+    } catch (\Exception $e) {
+        return 'Connection failed: ' . $e->getMessage();
+    }
+});   
     // Langsung tampilkan halaman login
     return view('auth.login');
 });
