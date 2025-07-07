@@ -8,11 +8,16 @@ use App\Models\Barang;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
+
 // Route utama - redirect ke dashboard jika sudah login, ke login jika belum
 Route::get('/', function () {
     if (Auth::check()) {
         return redirect()->route('dashboard');
     }
+
+    // Langsung tampilkan halaman login
+    return view('auth.login');
+});
 Route::get('/db-check', function () {
     try {
         \DB::connection()->getPdo();
@@ -21,10 +26,6 @@ Route::get('/db-check', function () {
         return 'Connection failed: ' . $e->getMessage();
     }
 });   
-    // Langsung tampilkan halaman login
-    return view('auth.login');
-});
-
 // Route dashboard
 Route::get('/dashboard', [DashboardController::class, 'index'])
     ->middleware(['auth', 'verified'])
