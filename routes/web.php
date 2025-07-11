@@ -25,11 +25,22 @@ Route::get('/db-check', function () {
     } catch (\Exception $e) {
         return 'Connection failed: ' . $e->getMessage();
     }
-});   
+})->name('db-check');
+
 // Route dashboard
 Route::get('/dashboard', [DashboardController::class, 'index'])
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
+// routes/web.php
+
+Route::get('/run-migrate', function () {
+    try {
+        \Artisan::call('migrate', ['--force' => true]);
+        return 'Migration ran successfully.';
+    } catch (\Exception $e) {
+        return 'Migration failed: ' . $e->getMessage();
+    }
+});
 
 // Semua route yang perlu login
 Route::middleware(['auth'])->group(function () {
